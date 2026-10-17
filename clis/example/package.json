@@ -1,0 +1,26 @@
+{
+  "name": "@tinwright/example",
+  "version": "0.1.0",
+  "description": "Counts the words, lines and characters in some text, a file, or whatever is piped in.",
+  "type": "module",
+  "bin": {
+    "example": "./cli.mjs"
+  },
+  "files": [
+    "cli.mjs"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinwright/cli-toolroll.git",
+    "directory": "clis/example"
+  },
+  "homepage": "https://tinwright.github.io/cli-toolroll/clis/example/",
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

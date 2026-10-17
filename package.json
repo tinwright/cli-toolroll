@@ -1,0 +1,23 @@
+{
+  "name": "cli-toolroll",
+  "private": true,
+  "type": "module",
+  "description": "Small command-line tools, one npm package each under @tinwright, with a catalog site.",
+  "license": "MIT",
+  "workspaces": [
+    "clis/*"
+  ],
+  "scripts": {
+    "create": "node scripts/create.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test \"scripts/*.test.mjs\" \"clis/*/*.test.mjs\"",
+    "build": "node scripts/build-site.mjs",
+    "dev": "npm run build && node scripts/serve.mjs dist"
+  },
+  "devDependencies": {
+    "marked": "18.1.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

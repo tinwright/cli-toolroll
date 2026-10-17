@@ -1,0 +1,26 @@
+{
+  "name": "@tinwright/__NAME__",
+  "version": "0.1.0",
+  "description": "__DESCRIPTION__",
+  "type": "module",
+  "bin": {
+    "__NAME__": "./cli.mjs"
+  },
+  "files": [
+    "cli.mjs"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinwright/cli-toolroll.git",
+    "directory": "clis/__NAME__"
+  },
+  "homepage": "https://tinwright.github.io/cli-toolroll/clis/__NAME__/",
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

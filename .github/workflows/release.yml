@@ -1,0 +1,50 @@
+name: Release
+
+# A tag <cli>@<version> (example@0.2.0), matching that CLI's package.json version, publishes it to
+# npm as @tinwright/<cli> with provenance, and makes a GitHub release with notes from its commits.
+# npm trusts this workflow directly (trusted publishing), so there's no npm token to keep.
+on:
+  push:
+    tags: ['*@*']
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - name: Read the tag
+        id: tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          name=${TAG%@*}
+          version=${TAG##*@}
+          test -f "clis/$name/package.json" || { echo "::error::No CLI called $name"; exit 1; }
+          actual=$(node -p "require('./clis/$name/package.json').version")
+          test "$actual" = "$version" || { echo "::error::The tag says $version, package.json $actual"; exit 1; }
+          echo "name=$name" >>"$GITHUB_OUTPUT"
+      - run: npm test
+      - name: Publish to npm
+        env:
+          NAME: ${{ steps.tag.outputs.name }}
+        run: npm publish --workspace "clis/$NAME"
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          NAME: ${{ steps.tag.outputs.name }}
+        run: |
+          node scripts/changelog.mjs "$NAME" >notes.md
+          gh release create "$TAG" --title "$TAG" --notes-file notes.md
