@@ -29,8 +29,7 @@ Every tool has `--help`, prints JSON with `--json`, and exits 0 when it worked, 
 npm install
 npm run create -- my-tool --description "What it does, in one sentence."
 npm run check   # this workshop's rules (--help, --json, exit codes, package.json) and a scan for secrets
-npm test        # the site, and every tool run as a real process
-npm run dev     # the catalog site at http://localhost:3000
+npm test        # every tool run as a real process
 ```
 
 [`CLAUDE.md`](CLAUDE.md) is the full guide, written so Claude can follow it too.

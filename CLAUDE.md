@@ -61,7 +61,7 @@ exit code, including `--json`, `--help` and a usage error. CI runs them on Linux
 
 ```sh
 npm run check   # the shared CLI rules, package.json, READMEs, tests, template leftovers, secrets
-npm test        # the site, and every tool as a real process
+npm test        # every tool as a real process
 ```
 
 CI runs both, and the private-data guard, which fails on company hosts, internal IDs and work
@@ -84,7 +84,8 @@ through the release workflow.
 
 ### Site
 
-`npm run build` writes the catalog site to `dist/`; `npm run dev` serves it at
-http://localhost:3000. The npx command on each card and page comes from `scripts/page.js`'s
-extension points, fed by each package.json. The build also writes `items.json`, which the
-org-wide gallery at https://tinwright.github.io reads.
+The catalog site at https://tinwright.github.io/cli-toolroll is built by `tinwright.github.io` from a
+checkout of this repo, hourly and on demand; nothing here builds or deploys it. The npx command
+on each card and page comes from `scripts/site.mjs`, fed by each package.json. To see it, run
+`npm run dev` in `tinwright.github.io`, cloned next to this repo; its `npm test` checks every page
+and link.
